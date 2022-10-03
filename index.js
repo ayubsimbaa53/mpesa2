@@ -30,7 +30,7 @@ const getAccessToken = async (req, res, next) => {
 
   await axios
     .get(
-      "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+      "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
       {
         headers: {
           authorization: `Basic ${auth}`,
@@ -72,7 +72,7 @@ app.post("/stk", getAccessToken, async (req, res) => {
 
   await axios
     .post(
-      "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
+      "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
       {
         BusinessShortCode: shortCode,
         Password: password,
@@ -80,7 +80,7 @@ app.post("/stk", getAccessToken, async (req, res) => {
         TransactionType: "CustomerPayBillOnline",
         Amount: amount,
         PartyA: `254${phone}`,
-        PartyB: 522522,
+        PartyB: shortCode,
         PhoneNumber: `254${phone}`,
         CallBackURL: `${callbackurl}/${process.env.CALLBACK_ROUTE}`,
         AccountReference: 1279306645,
@@ -162,7 +162,7 @@ app.post("/stkpushquery", getAccessToken, async (req, res) => {
   await axios
 
     .post(
-      "https://api.safaricom.co.ke/mpesa/stkpushquery/v1/query",
+      "https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query",
       {
         BusinessShortCode: shortCode,
         Password: password,
